@@ -22,7 +22,7 @@ export default async function Home() {
         },
       },
     },
-    take: 10,
+    take: 20,
   });
 
   return (
