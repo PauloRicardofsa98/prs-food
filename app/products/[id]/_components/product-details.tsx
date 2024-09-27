@@ -1,13 +1,13 @@
 "use client";
 
-import DiscountBadge from "@/app/_components/discount-badge";
-import ProductList from "@/app/_components/product-list";
-import { Button } from "@/app/_components/ui/button";
-import { Card } from "@/app/_components/ui/card";
+import DiscountBadge from "../../../_components/discount-badge";
+import ProductList from "../../../_components/product-list";
+import { Button } from "../../../_components/ui/button";
+import { Card } from "../../../_components/ui/card";
 import {
   calculateProductTotalPrice,
   formatCurrency,
-} from "@/app/_helpers/price";
+} from "../../../_helpers/price";
 import { Prisma } from "@prisma/client";
 import {
   BikeIcon,
