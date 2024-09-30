@@ -1,3 +1,4 @@
+"use client";
 import { OrderStatus } from "@prisma/client";
 import { createOrder } from "../_actions/order";
 import { useCartContext } from "../_contexts/cart";
@@ -18,7 +19,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "./ui/alert-dialog";
 
 const Cart = () => {
@@ -50,6 +50,14 @@ const Cart = () => {
         user: {
           connect: {
             id: data.user.id,
+          },
+        },
+        products: {
+          createMany: {
+            data: products.map((product) => ({
+              productId: product.id,
+              quantity: product.quantity,
+            })),
           },
         },
       });
@@ -126,9 +134,6 @@ const Cart = () => {
       </div>
 
       <AlertDialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
-        <AlertDialogTrigger asChild>
-          <Button variant="outline">Show Dialog</Button>
-        </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Deseja finalizar seu pedido?</AlertDialogTitle>
@@ -138,7 +143,8 @@ const Cart = () => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleFinishOrder}>
+            <AlertDialogAction onClick={handleFinishOrder} disabled={loading}>
+              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Finalizar
             </AlertDialogAction>
           </AlertDialogFooter>
