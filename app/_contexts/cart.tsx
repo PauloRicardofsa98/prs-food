@@ -10,6 +10,8 @@ export interface CartProduct
       restaurant: {
         select: {
           deliveryFee: true;
+          deliveryTimeMinutes: true;
+          id: true;
         };
       };
     };
@@ -33,6 +35,8 @@ interface CartContextProps {
         restaurant: {
           select: {
             deliveryFee: true;
+            deliveryTimeMinutes: true;
+            id: true;
           };
         };
       };
@@ -43,6 +47,7 @@ interface CartContextProps {
   decreaseProductQuantity: (productId: string) => void;
   increaseProductQuantity: (productId: string) => void;
   removeProductFromCart: (productId: string) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -83,6 +88,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         restaurant: {
           select: {
             deliveryFee: true;
+            deliveryTimeMinutes: true;
+            id: true;
           };
         };
       };
@@ -118,6 +125,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         quantity,
       },
     ]);
+  };
+
+  const clearCart = () => {
+    setProducts([]);
   };
 
   const decreaseProductQuantity = (productId: string) => {
@@ -167,6 +178,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         decreaseProductQuantity,
         increaseProductQuantity,
         removeProductFromCart,
+        clearCart,
       }}
     >
       {children}
