@@ -43,35 +43,43 @@ model Category {
 }
 
 model Product {
-  id                 String     @id @default(cuid())
+  id                 String          @id @default(cuid())
   name               String
   description        String
   imageUrl           String
-  price              Decimal    @db.Decimal(10, 2)
-  discountPercentage Int        @default(0)
+  price              Decimal         @db.Decimal(10, 2)
+  discountPercentage Int             @default(0)
   restaurantId       String
   categoryId         String
-  category           Category   @relation(fields: [categoryId], references: [id])
-  restaurant         Restaurant @relation(fields: [restaurantId], references: [id])
-  createdAt          DateTime   @default(now())
-  order              Order?     @relation(fields: [orderId], references: [id])
-  orderId            String?
+  category           Category        @relation(fields: [categoryId], references: [id])
+  restaurant         Restaurant      @relation(fields: [restaurantId], references: [id])
+  createdAt          DateTime        @default(now())
+  orderProducts      OrderProducts[]
+}
+
+model OrderProducts {
+  id        String  @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model Order {
-  id                  String      @id @default(uuid())
+  id                  String          @id @default(uuid())
   userId              String
-  products            Product[]
+  products            OrderProducts[]
   restaurantId        String
-  deliveryFee         Decimal     @db.Decimal(10, 2)
+  deliveryFee         Decimal         @db.Decimal(10, 2)
   deliveryTimeMinutes Int
-  totalPrice          Decimal     @db.Decimal(10, 2)
-  totalDiscount       Decimal     @db.Decimal(10, 2)
-  subtotalPrice       Decimal     @db.Decimal(10, 2)
-  user                User        @relation(fields: [userId], references: [id])
-  restaurant          Restaurant  @relation(fields: [restaurantId], references: [id])
+  totalPrice          Decimal         @db.Decimal(10, 2)
+  totalDiscount       Decimal         @db.Decimal(10, 2)
+  subtotalPrice       Decimal         @db.Decimal(10, 2)
+  user                User            @relation(fields: [userId], references: [id])
+  restaurant          Restaurant      @relation(fields: [restaurantId], references: [id])
   status              OrderStatus
-  createdAt           DateTime    @default(now())
+  createdAt           DateTime        @default(now())
 }
 
 model Account {
