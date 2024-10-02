@@ -20,8 +20,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-const Cart = () => {
+interface CartProps {
+  // eslint-disable-next-line no-unused-vars
+  setIsCartOpen: (isOpen: boolean) => void;
+}
+
+const Cart = ({ setIsCartOpen }: CartProps) => {
+  const router = useRouter();
   const { data } = useSession();
   const { products, subtotalPrice, totalDiscount, totalPrice, clearCart } =
     useCartContext();
@@ -62,6 +70,15 @@ const Cart = () => {
         },
       });
       clearCart();
+      setIsCartOpen(false);
+      toast("Pedido realizado com sucesso!", {
+        description:
+          "Você pode acompanhar o status do seu pedido na aba Meus Pedidos.",
+        action: {
+          label: "Meus Pedidos",
+          onClick: () => router.push("/my-orders"),
+        },
+      });
     } catch (error) {
       console.error(error);
     } finally {
