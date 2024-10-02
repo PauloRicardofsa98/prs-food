@@ -49,8 +49,11 @@ const OrderItem = ({ order }: OrderItemProps) => {
   const handleReorder = () => {
     order.products.forEach((orderProduct) => {
       addProductToCart({
-        product: { ...orderProduct.product, restaurant: order.restaurant },
-        quantity: orderProduct.quantity,
+        product: {
+          ...orderProduct.product,
+          restaurant: order.restaurant,
+          quantity: orderProduct.quantity,
+        },
       });
     });
 

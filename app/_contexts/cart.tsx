@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 "use client";
-import { Prisma, Product } from "@prisma/client";
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import { Prisma } from "@prisma/client";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { calculateProductTotalPrice } from "../_helpers/price";
 
 export interface CartProduct
@@ -27,21 +27,9 @@ interface CartContextProps {
   totalQuantity: number;
   addProductToCart: ({
     product,
-    quantity,
     emptyCart,
   }: {
-    product: Prisma.ProductGetPayload<{
-      include: {
-        restaurant: {
-          select: {
-            deliveryFee: true;
-            deliveryTimeMinutes: true;
-            id: true;
-          };
-        };
-      };
-    }>;
-    quantity: number;
+    product: CartProduct;
     emptyCart?: boolean;
   }) => void;
   decreaseProductQuantity: (productId: string) => void;
@@ -55,47 +43,25 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
 
-  const subtotalPrice = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + Number(product.price) * product.quantity;
-    }, 0);
-  }, [products]);
+  const subtotalPrice = products.reduce((acc, product) => {
+    return acc + Number(product.price) * product.quantity;
+  }, 0);
 
-  const totalPrice = useMemo(() => {
-    return (
-      products.reduce((acc, product) => {
-        return acc + calculateProductTotalPrice(product) * product.quantity;
-      }, 0) + Number(products?.[0]?.restaurant?.deliveryFee)
-    );
-  }, [products]);
+  const totalPrice =
+    products.reduce((acc, product) => {
+      return acc + calculateProductTotalPrice(product) * product.quantity;
+    }, 0) + Number(products?.[0]?.restaurant?.deliveryFee);
 
-  const totalQuantity = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + product.quantity;
-    }, 0);
-  }, [products]);
+  const totalQuantity = products.reduce((acc, product) => {
+    return acc + product.quantity;
+  }, 0);
 
   const totalDiscount =
     subtotalPrice - totalPrice + Number(products?.[0]?.restaurant?.deliveryFee);
 
-  const addProductToCart = ({
+  const addProductToCart: CartContextProps["addProductToCart"] = ({
     product,
-    quantity,
     emptyCart,
-  }: {
-    product: Prisma.ProductGetPayload<{
-      include: {
-        restaurant: {
-          select: {
-            deliveryFee: true;
-            deliveryTimeMinutes: true;
-            id: true;
-          };
-        };
-      };
-    }>;
-    quantity: number;
-    emptyCart?: boolean;
   }) => {
     if (emptyCart) {
       setProducts([]);
@@ -110,7 +76,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           if (cardProduct.id === product.id) {
             return {
               ...cardProduct,
-              quantity: cardProduct.quantity + quantity,
+              quantity: cardProduct.quantity + product.quantity,
             };
           }
           return cardProduct;
@@ -118,20 +84,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       );
     }
 
-    setProducts((prev) => [
-      ...prev,
-      {
-        ...product,
-        quantity,
-      },
-    ]);
+    setProducts((prev) => [...prev, product]);
   };
 
   const clearCart = () => {
     setProducts([]);
   };
 
-  const decreaseProductQuantity = (productId: string) => {
+  const decreaseProductQuantity: CartContextProps["decreaseProductQuantity"] = (
+    productId: string,
+  ) => {
     setProducts((prev) =>
       prev.map((cardProduct) => {
         if (cardProduct.id === productId) {
@@ -148,7 +110,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const increaseProductQuantity = (productId: string) => {
+  const increaseProductQuantity: CartContextProps["increaseProductQuantity"] = (
+    productId: string,
+  ) => {
     setProducts((prev) =>
       prev.map((cardProduct) => {
         if (cardProduct.id === productId) {
@@ -162,7 +126,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const removeProductFromCart = (productId: string) => {
+  const removeProductFromCart: CartContextProps["removeProductFromCart"] = (
+    productId: string,
+  ) => {
     setProducts((prev) => prev.filter((product) => product.id !== productId));
   };
 
