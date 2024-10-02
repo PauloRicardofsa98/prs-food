@@ -28,10 +28,15 @@ const Header = () => {
   const handleSignOut = () => signOut();
 
   return (
-    <div className="flex justify-between px-5 pt-6">
+    <div className="flex items-center justify-between px-5 pt-3">
       <Link href={"/"}>
-        <div className="relative h-[30px] w-[100px]">
-          <Image src="/logo.png" alt="logo" fill className="object-cover" />
+        <div className="relative h-[70px] w-[100px]">
+          <Image
+            src="/logo_prs_food.png"
+            alt="logo"
+            fill
+            className="object-cover"
+          />
         </div>
       </Link>
       <Sheet>
