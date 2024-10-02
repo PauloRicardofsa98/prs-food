@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
 import {
+  HeartIcon,
   HomeIcon,
   LogInIcon,
   LogOutIcon,
@@ -93,16 +94,29 @@ const Header = () => {
             </Button>
 
             {data?.user && (
-              <Button
-                variant={"ghost"}
-                className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-                asChild
-              >
-                <Link href="/my-orders">
-                  <ScrollTextIcon size={16} />
-                  <span className="block">Meus pedidos</span>
-                </Link>
-              </Button>
+              <>
+                <Button
+                  variant={"ghost"}
+                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                  asChild
+                >
+                  <Link href="/my-orders">
+                    <ScrollTextIcon size={16} />
+                    <span className="block">Meus pedidos</span>
+                  </Link>
+                </Button>
+
+                <Button
+                  variant={"ghost"}
+                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                  asChild
+                >
+                  <Link href="/my-favorite-restaurants">
+                    <HeartIcon size={16} />
+                    <span className="block">Restaurants favoritos</span>
+                  </Link>
+                </Button>
+              </>
             )}
           </div>
 
