@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+  PRS Food
+</h1>
 
-## Getting Started
+<p align="center">
+  <a href="#-sobre-o-projeto">Sobre</a> •
+  <a href="#-funcionalidades">Funcionalidades</a> •
+  <a href="#-tecnologias">Tecnologias</a> •
+  <a href="#-estrutura-do-projeto">Estrutura</a> •
+  <a href="#-english-version">English</a>
+</p>
 
-First, run the development server:
+<!-- Adicione screenshots aqui quando disponíveis -->
+<!-- <p align="center">
+  <img alt="PRS Food Demo" src=".github/demo.gif" width="100%">
+</p> -->
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Sobre o Projeto
+
+**PRS Food** é uma aplicação full-stack de delivery de comida inspirada no iFood. O projeto foi desenvolvido para demonstrar habilidades em desenvolvimento web moderno, utilizando as melhores práticas e tecnologias do mercado.
+
+A aplicação permite que usuários naveguem por restaurantes, explorem cardápios, adicionem produtos ao carrinho, realizem pedidos e acompanhem seu histórico de compras.
+
+---
+
+## Funcionalidades
+
+- **Autenticação com Google** - Login seguro via OAuth 2.0 com NextAuth.js
+- **Catálogo de Restaurantes** - Navegue por diversos restaurantes com informações de entrega
+- **Sistema de Favoritos** - Salve seus restaurantes favoritos
+- **Busca Inteligente** - Encontre produtos e restaurantes facilmente
+- **Carrinho de Compras** - Adicione, remova e ajuste quantidades de produtos
+- **Cálculo Automático** - Subtotal, descontos e taxa de entrega calculados em tempo real
+- **Gestão de Pedidos** - Realize pedidos e acompanhe o histórico completo
+- **Categorias de Produtos** - Hambúrgueres, Pizzas, Japonesa, Brasileira, Sobremesas e Sucos
+- **Descontos e Promoções** - Produtos com desconto exibidos com badge especial
+- **Design Responsivo** - Interface adaptada para diferentes dispositivos
+
+---
+
+## Tecnologias
+
+### Frontend
+- **[Next.js 14](https://nextjs.org/)** - Framework React com App Router
+- **[TypeScript](https://www.typescriptlang.org/)** - Tipagem estática
+- **[Tailwind CSS](https://tailwindcss.com/)** - Estilização utilitária
+- **[Radix UI](https://www.radix-ui.com/)** - Componentes acessíveis (Dialog, Sheet, Avatar, Toast)
+- **[Lucide React](https://lucide.dev/)** - Ícones modernos
+
+### Backend
+- **[Prisma](https://www.prisma.io/)** - ORM para Node.js/TypeScript
+- **[PostgreSQL](https://www.postgresql.org/)** - Banco de dados relacional
+- **[NextAuth.js](https://next-auth.js.org/)** - Autenticação com Google OAuth
+- **[Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)** - Mutações server-side
+
+### DevOps & Ferramentas
+- **[Docker](https://www.docker.com/)** - Containerização do banco de dados
+- **[ESLint](https://eslint.org/)** - Linting de código
+- **[Prettier](https://prettier.io/)** - Formatação de código
+- **[Husky](https://typicode.github.io/husky/)** - Git hooks
+
+---
+
+## Estrutura do Projeto
+
+```
+prs-food/
+├── app/
+│   ├── _actions/          # Server Actions (orders, favorites)
+│   ├── _components/       # Componentes reutilizáveis
+│   │   └── ui/           # Componentes Radix UI
+│   ├── _contexts/        # React Context (Cart)
+│   ├── _helpers/         # Funções auxiliares (preço, formatação)
+│   ├── _hooks/           # Custom hooks
+│   ├── _lib/             # Configurações (Prisma, Auth)
+│   ├── _providers/       # Providers (Auth)
+│   ├── api/auth/         # Rotas NextAuth
+│   ├── categories/       # Página de categorias
+│   ├── my-favorite-restaurants/  # Favoritos do usuário
+│   ├── my-orders/        # Histórico de pedidos
+│   ├── products/         # Páginas de produtos
+│   ├── restaurants/      # Páginas de restaurantes
+│   ├── layout.tsx        # Layout principal
+│   └── page.tsx          # Home page
+├── prisma/
+│   ├── schema.prisma     # Schema do banco de dados
+│   └── seed.ts           # Script de seed
+├── public/               # Assets estáticos
+├── docker-compose.yml    # Configuração Docker
+└── package.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## English Version
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### About
 
-## Learn More
+**PRS Food** is a full-stack food delivery application inspired by iFood. This project showcases modern web development skills using industry best practices and cutting-edge technologies.
 
-To learn more about Next.js, take a look at the following resources:
+### Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Google OAuth authentication
+- Restaurant catalog with delivery info
+- Favorites system
+- Smart search
+- Shopping cart with real-time calculations
+- Order management and history
+- Product categories and discounts
+- Responsive design
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Tech Stack
 
-## Deploy on Vercel
+**Frontend:** Next.js 14, TypeScript, Tailwind CSS, Radix UI, Lucide Icons
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Backend:** Prisma ORM, PostgreSQL, NextAuth.js, Server Actions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**DevOps:** Docker, ESLint, Prettier, Husky
