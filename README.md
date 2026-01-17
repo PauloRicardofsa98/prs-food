@@ -2,20 +2,10 @@
   PRS Food
 </h1>
 
-<p align="center">
-  <a href="#-sobre-o-projeto">Sobre</a> •
-  <a href="#-funcionalidades">Funcionalidades</a> •
-  <a href="#-tecnologias">Tecnologias</a> •
-  <a href="#-estrutura-do-projeto">Estrutura</a> •
-  <a href="#-english-version">English</a>
-</p>
-
 <!-- Adicione screenshots aqui quando disponíveis -->
 <!-- <p align="center">
   <img alt="PRS Food Demo" src=".github/demo.gif" width="100%">
 </p> -->
-
----
 
 ## Sobre o Projeto
 
